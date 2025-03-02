@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Enum, DateTime
 from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime
+from datetime import datetime, timezone
 import enum
 
 Base = declarative_base()
@@ -18,5 +18,5 @@ class Order(Base):
     item_ids = Column(String)
     total_amount = Column(Float)
     status = Column(Enum("Pending", "Processing", "Completed", name="order_status"))
-    created_at = Column(DateTime, default=datetime.now(datetime.timetzone.utc))
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     completed_at = Column(DateTime, nullable=True)

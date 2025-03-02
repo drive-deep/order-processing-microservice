@@ -1,6 +1,6 @@
-from app.db.session import async_session
+from backend.db.session import async_session
 from sqlalchemy.future import select
-from app.db.models import Order
+from backend.db.models.order import Order
 
 async def get_metrics():
     """Compute metrics such as total orders, status counts, and processing time."""

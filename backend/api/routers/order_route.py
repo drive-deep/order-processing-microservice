@@ -1,17 +1,17 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.db.session import get_db
-from app.schemas.order import OrderCreate, Order as OrderSchema
-from app.api.services.order_service import create_order, get_order
-from app.queue.order_queue import order_queue
+from backend.db.session import get_db
+from backend.schemas.order import OrderCreate, Order as OrderSchema
+from backend.api.services.order_service import create_order, get_order
+from backend.queue.order_queue import add_order, process_order
 
-router = APIRouter(prefix="/orders", tags=["Orders"])
+router = APIRouter()
 
 @router.post("/", response_model=OrderSchema)
 async def create_order_api(order: OrderCreate, db: AsyncSession = Depends(get_db)):
     """Create a new order and add to the processing queue."""
     db_order = await create_order(db, order)
-    await order_queue.put(db_order)  # Add order to queue
+    await add_order(db_order)  # Add order to queue
     return db_order
 
 @router.get("/{order_id}", response_model=OrderSchema)

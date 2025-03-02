@@ -1,8 +1,8 @@
 import aioredis
 import json
 from typing import Any, Optional
-from app.cache.cache import CacheInterface
-from app.core.config import settings  # Load Redis configuration
+from backend.cache.cache import CacheInterface
+from backend.core.config import settings  # Load Redis configuration
 
 class RedisCache(CacheInterface):
     """Redis implementation of the caching interface"""

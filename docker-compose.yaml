@@ -6,11 +6,11 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./app:/app
+      - ./backend:/app
     environment:
       - DATABASE_URL=postgresql://user:password@db:5432/orders_db
       - REDIS_URL=redis://cache:6379/0
-      - PYTHONPATH=/app
+      - PYTHONPATH=/backend
     depends_on:
       - db
       - cache
