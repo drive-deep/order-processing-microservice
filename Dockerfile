@@ -1,5 +1,5 @@
-# Use Python 3.9 as base image
-FROM python:3.9
+# Use Python 3.11 as base image
+FROM python:3.11-slim-buster
 
 # Set the working directory inside the container
 WORKDIR /backend

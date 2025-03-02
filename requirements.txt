@@ -8,4 +8,4 @@ pytest
 httpx
 locust
 pydantic-settings
-aioredis
+

@@ -1,4 +1,4 @@
-import aioredis
+import redis.asyncio as redis
 import json
 from typing import Any, Optional
 from backend.cache.cache import CacheInterface
@@ -12,7 +12,7 @@ class RedisCache(CacheInterface):
 
     async def init_cache(self):
         """Initialize Redis connection"""
-        self.redis = await aioredis.from_url(settings.REDIS_URL, decode_responses=True)
+        self.redis = redis.Redis.from_url(settings.REDIS_URL, decode_responses=True)
 
     async def get(self, key: str) -> Optional[Any]:
         """Retrieve a value from Redis"""
