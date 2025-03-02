@@ -8,4 +8,6 @@ pytest
 httpx
 locust
 pydantic-settings
+psycopg2-binary
+
 
