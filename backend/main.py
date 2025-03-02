@@ -10,7 +10,7 @@ app = FastAPI(title="Order Processing Backend", version="1.0")
 async def startup_event():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
-app.include_router(order_router.router, prefix="/orders", tags=["orders"])
+app.include_router(order_router, prefix="/orders", tags=["orders"])
 
 # order_queue = asyncio.Queue()
 
