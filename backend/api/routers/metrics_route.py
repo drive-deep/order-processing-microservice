@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from backend.services.metrics_service import get_metrics
+from backend.api.services.metrics_service import get_metrics
 
-router = APIRouter(prefix="/metrics", tags=["Metrics"])
+router = APIRouter()
 
 @router.get("/")
 async def metrics_api():
