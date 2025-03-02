@@ -22,7 +22,7 @@ class OrderRepository:
             
             # Cache the order in Redis for faster retrieval
             order_json = json.dumps(jsonable_encoder(new_order))
-            await redis_cache.set(f"order:{new_order.id}", order_json)
+            await redis_cache.set(f"order:{new_order.order_id}", order_json)
             
             return new_order
 

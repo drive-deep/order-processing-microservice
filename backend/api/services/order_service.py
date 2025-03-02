@@ -13,7 +13,9 @@ async def create_order(
     """Create a new order and add to the processing queue."""
     repository = OrderRepository()  # Pass db session to repository
     db_order = await repository.create_order(order)
-    await add_order(db_order)
+    print("Order created:", db_order)
+    print(f"order_id : {db_order.order_id}")
+    add_order(db_order)
     return OrderSchema.model_validate(db_order)  # Ensure correct Pydantic serialization
 
 @router.get("/{order_id}", response_model=OrderSchema)

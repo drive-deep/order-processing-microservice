@@ -11,7 +11,7 @@ router = APIRouter()
 async def create_order_api(order: OrderCreate):
     """Create a new order and add to the processing queue."""
     db_order = await create_order(order)
-    await add_order(db_order)  # Add order to queue
+    #await add_order(db_order)  # Add order to queue
     return db_order
 
 @router.get("/{order_id}", response_model=OrderSchema)
