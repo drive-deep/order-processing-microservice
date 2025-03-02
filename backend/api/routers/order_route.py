@@ -8,16 +8,16 @@ from backend.queue.order_queue import add_order, process_order
 router = APIRouter()
 
 @router.post("/", response_model=OrderSchema)
-async def create_order_api(order: OrderCreate, db: AsyncSession = Depends(get_db)):
+async def create_order_api(order: OrderCreate):
     """Create a new order and add to the processing queue."""
-    db_order = await create_order(db, order)
+    db_order = await create_order(order)
     await add_order(db_order)  # Add order to queue
     return db_order
 
 @router.get("/{order_id}", response_model=OrderSchema)
-async def get_order_api(order_id: int, db: AsyncSession = Depends(get_db)):
+async def get_order_api(order_id: int):
     """Retrieve the status of an order (Uses Redis cache)."""
-    db_order = await get_order(db, order_id)
+    db_order = await get_order(order_id)
     if db_order is None:
         raise HTTPException(status_code=404, detail="Order not found")
     return db_order

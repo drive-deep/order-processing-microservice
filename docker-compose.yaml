@@ -9,15 +9,15 @@ services:
     volumes:
       - ./backend:/app
     environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/orders_db
-      - REDIS_URL=redis://cache:6379/0
+      - DATABASE_URL=postgresql+asyncpg://user:password@postgres:5432/orders_db
+      - REDIS_URL=redis://redis:6379/0
       - PYTHONPATH=/backend
     depends_on:
-      - db
-      - cache
+      - postgres
+      - redis
 
-  db:
-    container_name: postgres_db
+  postgres:
+    container_name: postgres
     image: postgres:latest
     restart: always
     environment:
@@ -27,8 +27,8 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
-  cache:
-    container_name: redis_cache
+  redis:
+    container_name: redis
     image: redis:latest
     restart: always
 
