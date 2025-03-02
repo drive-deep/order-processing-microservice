@@ -6,16 +6,15 @@ from backend.core.config import settings
 from backend.db.session import engine, Base
 
 app = FastAPI(title="Order Processing Backend", version="1.0")
+
 @app.on_event("startup")
 async def startup_event():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
-# order_queue = asyncio.Queue()
-
 @app.get("/")
 def read_root():
     return {"message": "Welcome to the Order Processing Backend API!"}
-  
-app.include_router(order_router.router, prefix="/orders", tags=["Orders"])
-# app.include_router(metrics_router.router, prefix="/metrics", tags=["Metrics"])
+
+# Fix the router inclusion
+app.include_router(order_router, prefix="/orders", tags=["Orders"])
