@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   web:
+    container_name: order_service
     build: .
     ports:
       - "8000:8000"
@@ -16,6 +17,7 @@ services:
       - cache
 
   db:
+    container_name: postgres_db
     image: postgres:latest
     restart: always
     environment:
@@ -26,6 +28,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
 
   cache:
+    container_name: redis_cache
     image: redis:latest
     restart: always
 

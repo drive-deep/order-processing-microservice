@@ -6,11 +6,11 @@ from backend.core.config import settings
 from backend.db.session import engine, Base
 
 app = FastAPI(title="Order Processing Backend", version="1.0")
-# @app.on_event("startup")
-# async def startup_event():
-#     async with engine.begin() as conn:
-#         await conn.run_sync(Base.metadata.create_all)
-# app.include_router(order_router.router, prefix="/orders", tags=["orders"])
+@app.on_event("startup")
+async def startup_event():
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
+app.include_router(order_router.router, prefix="/orders", tags=["orders"])
 
 # order_queue = asyncio.Queue()
 
