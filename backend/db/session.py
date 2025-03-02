@@ -21,3 +21,8 @@ Base = declarative_base()
 async def get_db():
     async with async_session_maker() as session:
         yield session
+
+async def create_tables():
+    """Creates tables based on SQLAlchemy models"""
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)

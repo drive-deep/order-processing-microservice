@@ -33,7 +33,7 @@ class OrderRepository:
             return json.loads(cached_order)  # Deserialize JSON before returning
 
         async with async_session_maker() as session:
-            result = await session.execute(select(Order).where(Order.id == order_id))
+            result = await session.execute(select(Order).where(Order.order_id == order_id))
             order = result.scalars().first()
             
             # Cache the order for future requests
